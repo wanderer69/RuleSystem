@@ -1,0 +1,351 @@
+[
+  {
+    "ID": "печатать факт",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "print",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "(",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [
+          "символ"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "вызвать правило",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "call",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "(",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [
+          "символ"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "правило",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "defrule",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "{",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": ";",
+        "GR_ID_List": [
+          "условие",
+          "следствие"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "условие",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "condition",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "{",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": ";",
+        "GR_ID_List": [
+          "найти факт"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "следствие",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "consequence",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "{",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": ";",
+        "GR_ID_List": [
+          "добавить факт",
+          "удалить факт",
+          "печатать факт",
+          "вызвать правило",
+          "если"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "найти факт",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "match",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "(",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [
+          "список_аргументов"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "добавить факт",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "add",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "(",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [
+          "список_аргументов"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "удалить факт",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "delete",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "(",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [
+          "символ"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "строка",
+    "GrammaticItemList": [
+      {
+        "Type": "string",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "если",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 1,
+        "Value": "if",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "(",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [
+          "условие1",
+          "условие2"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      },
+      {
+        "Type": "{",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": ";",
+        "GR_ID_List": [
+          "добавить факт",
+          "удалить факт",
+          "печатать факт",
+          "вызвать правило",
+          "если"
+        ],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  },
+  {
+    "ID": "символ",
+    "GrammaticItemList": [
+      {
+        "Type": "symbols",
+        "Mod": "",
+        "Attribute": 0,
+        "Value": "",
+        "ID": "",
+        "GR_ID_List": [],
+        "Ender": "",
+        "Cyclic": 0,
+        "Var": ""
+      }
+    ]
+  }
+]
