@@ -497,6 +497,47 @@ type Condition_mask struct {
 	Type   int
 }
 
+func ParseArgList(si string, debug int) []string {
+	ender := ","
+
+        s_in := si
+	s_error := []string{}
+	level := 0
+	res_out := true
+	ia := []string{}
+
+	for {
+		// читаем по грамматическим элементам
+		l_1, pos_beg, pos_end, err1 := Load_level(ender, 0, len(s_in), len(s_in), s_in, 0, "", debug)
+		if err1 != 0 {
+			fmt.Printf("err %v\r\n", err1)
+			s_error = append(s_error, fmt.Sprintf("error %v in level %v in process %v", err1, level, s_in))
+			break
+		}
+		// ищем подходящий грамматический элемент
+		if len(l_1) > 0 {
+			if debug > 20 {
+				fmt.Printf("l_1 %v\r\n", l_1)
+			}
+			for i, _ := range l_1 {
+				ia = append(ia, l_1[i].Data)
+			}
+			if !res_out {
+				break
+			}
+			if pos_beg >= pos_end {
+				break
+			}
+			s_in = s_in[pos_beg:]
+			s_in = strings.Trim(s_in, " \r\n\t")
+			if len(s_in) == 0 {
+				break
+			}
+		}
+	}
+	return ia
+}
+
 func load_items(in_file_name string, out_file_name string, env *Env) (string, error) {
 	data, err := ioutil.ReadFile(in_file_name)
 	if err != nil {
@@ -766,7 +807,8 @@ func load_items(in_file_name string, out_file_name string, env *Env) (string, er
 										id = gr_i.GR_ID_List[0]
 										flag_gr = true
 									case "список_аргументов":
-										al := strings.Split(s_, ",")
+                                                                                al := ParseArgList(s_, debug)
+										// al := strings.Split(s_, ",")
 										for _, v := range al {
 											item := Item{"symbols", strings.Trim(v, " \r\n\t")}
 											ia = append(ia, item)

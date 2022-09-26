@@ -771,7 +771,7 @@ func Make_Rules(env *Env) {
 	// <symbols, == print> <(, > - определение оператора print
 	gr = MakeRule("печатать факт", env)
 	gr.AddItemToRule("symbols", "", 1, "print", "", []string{}, env)
-	gr.AddItemToRule("(", "", 0, "", "", []string{"символ"}, env)
+	gr.AddItemToRule("(", "", 0, "", "", []string{"список_аргументов"}, env)   // "символ"
 	gr.AddRuleHandler(f_print, env)
 
 	// <symbols, == quit> <(, > - определение оператора quit - закончить выполнение
