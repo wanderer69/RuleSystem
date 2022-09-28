@@ -538,13 +538,8 @@ func ParseArgList(si string, debug int) []string {
 	return ia
 }
 
-func load_items(in_file_name string, out_file_name string, env *Env) (string, error) {
-	data, err := ioutil.ReadFile(in_file_name)
-	if err != nil {
-		fmt.Print(err)
-		return "", err
-	}
-	s := string(data)
+func load_items(data_in string, env *Env) (string, error) {
+	s := data_in
 
 	// делим на элементы
 	ll := strings.Split(s, "\n") // \r
@@ -886,10 +881,7 @@ func load_items(in_file_name string, out_file_name string, env *Env) (string, er
 				result = result + "\r\n" + res_out
 			}
 		}
-		err = ioutil.WriteFile(out_file_name, []byte(result), 0644)
-		if err != nil {
-			panic(err)
-		}
+		return result, nil
 	} else {
 		ss := ""
 		for i, _ := range e_list {
@@ -902,5 +894,29 @@ func load_items(in_file_name string, out_file_name string, env *Env) (string, er
 }
 
 func (env *Env) ParseFile(in_file_name string, out_file_name string) (string, error) {
-	return load_items(in_file_name, out_file_name, env)
+	data, err := ioutil.ReadFile(in_file_name)
+	if err != nil {
+		fmt.Print(err)
+		return "", err
+	}
+
+	result, err := load_items(string(data), env)
+	if err != nil {
+		return "", err		
+	}
+	if len(out_file_name) > 0 {
+		err = ioutil.WriteFile(out_file_name, []byte(result), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+	return result, nil
+}
+
+func (env *Env) ParseString(in_data string) (string, error) {
+	result, err := load_items(string(in_data), env)
+	if err != nil {
+		return "", err		
+	}
+	return result, nil
 }
