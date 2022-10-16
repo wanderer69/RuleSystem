@@ -589,27 +589,34 @@ func load_items(data_in string, env *Env) (string, error) {
 				for i, _ := range gr_item.GrammaticItemList {
 					gi := gr_item.GrammaticItemList[i]
 					item := f_item[i]
-					if gi.Type == item.Type {
-						if debug > 2 {
-							fmt.Printf("--- gi %v item %v\r\n", gi, item)
-						}
-						switch gi.Attribute {
-						case 0:
-							n = n + 1
-						case 1:
-							switch gi.Mod {
-							case "":
-								if gi.Value == item.Data {
-									n = n + 1
-								}
-							case "[0]":
-								if gi.Value == item.Data[0:1] {
-									n = n + 1
+					tl := strings.Split(gi.Type, "|")
+					flag_ii := false
+					for ii, _ := range tl {
+						if tl[ii] == item.Type {
+							if debug > 2 {
+								fmt.Printf("--- gi %v item %v\r\n", gi, item)
+							}
+							switch gi.Attribute {
+							case 0:
+								n = n + 1
+							case 1:
+								switch gi.Mod {
+								case "":
+									if gi.Value == item.Data {
+										n = n + 1
+									}
+								case "[0]":
+									if gi.Value == item.Data[0:1] {
+										n = n + 1
+									}
 								}
 							}
+						} else {
+							flag_ii = true
 						}
-					} else {
-						break
+					}
+					if flag_ii {
+					        break
 					}
 				}
 				if n == len(gr_item.GrammaticItemList) {
