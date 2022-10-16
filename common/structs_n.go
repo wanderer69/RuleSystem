@@ -659,6 +659,10 @@ func match_facts(mc *MatchContext, mfa []*MatchedFact) (*MatchedFact, error) {
 		// все наоборот! цикл по списку атрибутов для сравнения!
 		flag := true
 		mal := []*Attribute{}
+		if len(mc.Facts) == 0 {
+                        flag = false
+		        break
+		}
 		if mc.Facts[mc.Current_fact].State == 0 {
 			if len(mc.Facts[mc.Current_fact].Attributes) == len(attributes) {
 				for j, _ := range mc.Facts[mc.Current_fact].Attributes {
@@ -877,6 +881,7 @@ func ExecuteRule(r *Rule, env *Environment) (bool, error) {
 
 		if len(mca) > 0 {
 			for {
+			        fmt.Printf("current_match %v mca %v\r\n", current_match, mca)
 				mf, err := match_facts(mca[current_match], mfa)
 				if err != nil {
 					// спискок фактов закончился но сравнение завершено не было

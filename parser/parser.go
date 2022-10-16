@@ -68,6 +68,7 @@ func Load_level(level_attribute string, pos_begin int, pos_end int, lent int, te
 				level_g := 1
 				prev = i
 				i = i + w
+				flag_space1 := false
 				for {
 					runeValue, width := utf8.DecodeRuneInString(text[i:])
 					if debug > 42 {
@@ -75,15 +76,24 @@ func Load_level(level_attribute string, pos_begin int, pos_end int, lent int, te
 					}
 					w = width
 					s1 := string(runeValue)
-					if s1 == "(" {
-						level_g = level_g + 1
-					} else {
-						if s1 == ")" {
-							level_g = level_g - 1
-							if level_g > 0 {
+					if s1 == "\"" {
+						if flag_space1 {
+							flag_space1 = false
+						} else {
+							flag_space1 = true
+						}
+					}
+					if !flag_space1 {
+						if s1 == "(" {
+							level_g = level_g + 1
+						} else {
+							if s1 == ")" {
+								level_g = level_g - 1
+								if level_g > 0 {
 
-							} else {
-								break
+								} else {
+									break
+								}
 							}
 						}
 					}
@@ -372,6 +382,7 @@ type Env struct {
 	ErrorsList       []string
 	CE               *CurrentEnv
 	Struct           interface{}
+	Debug            int
 }
 
 type ParseFuncDict struct {
@@ -500,7 +511,7 @@ type Condition_mask struct {
 func ParseArgList(si string, debug int) []string {
 	ender := ","
 
-        s_in := si
+	s_in := si
 	s_error := []string{}
 	level := 0
 	res_out := true
@@ -802,7 +813,7 @@ func load_items(data_in string, env *Env) (string, error) {
 										id = gr_i.GR_ID_List[0]
 										flag_gr = true
 									case "список_аргументов":
-                                                                                al := ParseArgList(s_, debug)
+										al := ParseArgList(s_, debug)
 										// al := strings.Split(s_, ",")
 										for _, v := range al {
 											item := Item{"symbols", strings.Trim(v, " \r\n\t")}
@@ -852,7 +863,7 @@ func load_items(data_in string, env *Env) (string, error) {
 		}
 		return pia, s_error, res_out
 	}
-	pia, e_list, res := translate(";", s, env.high_level_array, 0, 0)
+	pia, e_list, res := translate(";", s, env.high_level_array, 0, env.Debug)
 	if res {
 		if true {
 			for i, _ := range pia {
@@ -902,7 +913,7 @@ func (env *Env) ParseFile(in_file_name string, out_file_name string) (string, er
 
 	result, err := load_items(string(data), env)
 	if err != nil {
-		return "", err		
+		return "", err
 	}
 	if len(out_file_name) > 0 {
 		err = ioutil.WriteFile(out_file_name, []byte(result), 0644)
@@ -916,7 +927,7 @@ func (env *Env) ParseFile(in_file_name string, out_file_name string) (string, er
 func (env *Env) ParseString(in_data string) (string, error) {
 	result, err := load_items(string(in_data), env)
 	if err != nil {
-		return "", err		
+		return "", err
 	}
 	return result, nil
 }
