@@ -592,6 +592,7 @@ func load_items(data_in string, env *Env) (string, error) {
 					tl := strings.Split(gi.Type, "|")
 					flag_ii := false
 					for ii, _ := range tl {
+					        //fmt.Printf("tl[ii] %v item.Type %v\r\n", tl[ii], item.Type)
 						if tl[ii] == item.Type {
 							if debug > 2 {
 								fmt.Printf("--- gi %v item %v\r\n", gi, item)
@@ -611,6 +612,7 @@ func load_items(data_in string, env *Env) (string, error) {
 									}
 								}
 							}
+							break
 						} else {
 							flag_ii = true
 						}
