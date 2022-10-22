@@ -881,7 +881,7 @@ func ExecuteRule(r *Rule, env *Environment) (bool, error) {
 
 		if len(mca) > 0 {
 			for {
-			        fmt.Printf("current_match %v mca %v\r\n", current_match, mca)
+			        // fmt.Printf("current_match %v mca %v\r\n", current_match, mca)
 				mf, err := match_facts(mca[current_match], mfa)
 				if err != nil {
 					// спискок фактов закончился но сравнение завершено не было

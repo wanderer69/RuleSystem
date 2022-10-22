@@ -277,6 +277,11 @@ func Load_level(level_attribute string, pos_begin int, pos_end int, lent int, te
 				}
 				return items_a, i + 1, pos_end, 0
 			} else if s1 == "\"" {
+			        // надо проверить, что 
+			        if (i - i_prev) > 1 {
+					ci := Item{"symbols", text[prev:i]}
+					items_a = append(items_a, ci)
+                                }
 				i_prev = i // + w
 				if flag_s {
 					flag_s = false
@@ -341,7 +346,7 @@ func Load_level(level_attribute string, pos_begin int, pos_end int, lent int, te
 				if debug > 40 {
 					fmt.Printf("text all %v\r\n", text[i_prev:i])
 				}
-				ci := Item{"symbol", text[i_prev:i]}
+				ci := Item{"symbols", text[i_prev:i]}
 				items_a = append(items_a, ci)
 			}
 		}
@@ -530,8 +535,17 @@ func ParseArgList(si string, debug int) []string {
 			if debug > 20 {
 				fmt.Printf("l_1 %v\r\n", l_1)
 			}
-			for i, _ := range l_1 {
-				ia = append(ia, l_1[i].Data)
+		        if len(l_1) > 1 {
+		                ss := ""
+				for i, _ := range l_1 {
+				        ss = ss + l_1[i].Data
+					//ia = append(ia, l_1[i].Data)
+				}
+                                ia = append(ia, ss)
+		        }  else {
+				//for i, _ := range l_1 {
+					ia = append(ia, l_1[0].Data)
+				//}
 			}
 			if !res_out {
 				break
@@ -592,7 +606,7 @@ func load_items(data_in string, env *Env) (string, error) {
 					tl := strings.Split(gi.Type, "|")
 					flag_ii := false
 					for ii, _ := range tl {
-					        //fmt.Printf("tl[ii] %v item.Type %v\r\n", tl[ii], item.Type)
+					        // fmt.Printf("tl[ii] %v item.Type %v\r\n", tl[ii], item.Type)
 						if tl[ii] == item.Type {
 							if debug > 2 {
 								fmt.Printf("--- gi %v item %v\r\n", gi, item)
@@ -668,6 +682,7 @@ func load_items(data_in string, env *Env) (string, error) {
 			st = st + "\t"
 		}
 		state := 0
+		//fmt.Printf("pi.Gr.ID %v\r\n", pi.Gr.ID)
 		fn, ok := env_i.parse_func_dict[pi.Gr.ID]
 		if !ok {
 			return "", false, errors.New(fmt.Sprintf("handler for rule %v not defined", pi.Gr.ID))
@@ -675,6 +690,7 @@ func load_items(data_in string, env *Env) (string, error) {
 		flag := false
 		result0 := ""
 		for {
+		        // fmt.Printf("state %v\r\n", state)
 			switch state {
 			case 0:
 				env_i.CE.State = state
@@ -796,6 +812,7 @@ func load_items(data_in string, env *Env) (string, error) {
 				s_error = append(s_error, fmt.Sprintf("error %v in level %v in process %v", err1, level, s_in))
 				break
 			}
+
 			// ищем подходящий грамматический элемент
 			if len(l_1) > 0 {
 				if debug > 20 {
@@ -823,6 +840,7 @@ func load_items(data_in string, env *Env) (string, error) {
 										flag_gr = true
 									case "список_аргументов":
 										al := ParseArgList(s_, debug)
+										//fmt.Printf(" al, %v s_ %v\r\n", al, s_)
 										// al := strings.Split(s_, ",")
 										for _, v := range al {
 											item := Item{"symbols", strings.Trim(v, " \r\n\t")}
@@ -837,6 +855,7 @@ func load_items(data_in string, env *Env) (string, error) {
 									}
 								}
 								if !flag_gr {
+								        // fmt.Printf("gr_i.Ender %v gr_i.GR_ID_List %v\r\n", gr_i.Ender, gr_i.GR_ID_List)
 									pi__, e_list, res := translate(gr_i.Ender, s_, gr_i.GR_ID_List, level+1, debug)
 									if res {
 										pi.PI = append(pi.PI, pi__)
