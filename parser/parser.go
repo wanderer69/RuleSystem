@@ -893,7 +893,7 @@ func load_items(data_in string, env *Env) (string, error) {
 	}
 	pia, e_list, res := translate(";", s, env.high_level_array, 0, env.Debug)
 	if res {
-		if true {
+		if env.Debug > 0 {
 			for i, _ := range pia {
 				print_pi(pia[i], 0)
 			}

@@ -47,10 +47,10 @@ func NewAttribute(type_ string, name string, value string) *Attribute {
 		a.Value = value
 	case "const_variable":
 		a.Const = name
-		a.Variable = name
+		a.Variable = value
 	case "const_variable_value":
 		a.Const = name
-		a.Variable = name
+		a.Variable = value
 	case "special":
 		v, _ := strconv.ParseInt(value, 10, 64)
 		a.Code = int(v)
