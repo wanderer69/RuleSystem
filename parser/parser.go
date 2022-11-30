@@ -563,6 +563,58 @@ func ParseArgList(si string, debug int) []string {
 	return ia
 }
 
+func ParseArgListFull(si string, debug int) [][]string {
+	ender := ","
+
+	s_in := si
+	s_error := []string{}
+	level := 0
+	res_out := true
+	ia := [][]string{}
+
+	for {
+		// читаем по грамматическим элементам
+		l_1, pos_beg, pos_end, err1 := Load_level(ender, 0, len(s_in), len(s_in), s_in, 0, "", debug)
+		if err1 != 0 {
+			fmt.Printf("err %v\r\n", err1)
+			s_error = append(s_error, fmt.Sprintf("error %v in level %v in process %v", err1, level, s_in))
+			break
+		}
+		// ищем подходящий грамматический элемент
+		if len(l_1) > 0 {
+			if debug > 1 {
+				fmt.Printf("l_1 %#v\r\n", l_1)
+			}
+		        if len(l_1) > 1 {
+		                //ss := []string{}
+				for i, _ := range l_1 {
+				        //ss = ss + l_1[i].Data
+					//ss = append(ss, l_1[i].Type)
+					//ss = append(ss, l_1[i].Data)
+	                                ia = append(ia, []string{l_1[i].Type, l_1[i].Data})
+				}
+                                //ia = append(ia, ss)
+		        }  else {
+				//for i, _ := range l_1 {
+					ia = append(ia, []string{l_1[0].Type, l_1[0].Data})
+				//}
+			}
+			if !res_out {
+				break
+			}
+			if pos_beg >= pos_end {
+				break
+			}
+			s_in = s_in[pos_beg:]
+			s_in = strings.Trim(s_in, " \r\n\t")
+			if len(s_in) == 0 {
+				break
+			}
+		}
+	}
+	return ia
+}
+
 func load_items(data_in string, env *Env) (string, error) {
 	s := data_in
 
@@ -626,6 +678,7 @@ func load_items(data_in string, env *Env) (string, error) {
 									}
 								}
 							}
+                                                        flag_ii = false
 							break
 						} else {
 							flag_ii = true
